@@ -4,8 +4,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 import joblib
 import math
 # Load the trained GradientBoostingRegressor model
-model_gb = joblib.load(
-    'D:\\Skills\\Tech\\DataAnalysis\\Credit_Risk_Assessment\\gb_regressor.pkl')
+model_gb = joblib.load('gb_regressor.pkl')
 
 # Function to preprocess input data
 
