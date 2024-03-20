@@ -22,10 +22,13 @@ def preprocess_input(age, income, credit_score, ec, num_existing_loans, loan_amo
     })
     return input_data
 
-
 # Streamlit app
 st.title('Credit Assessment App')
-
+# Display the rectangle with a text description inside
+st.markdown(f'<div style="padding:10px;">'
+            f'<h4> ReadMe </h3>'
+            f"<p>This app is based on a dataset from Kaggle, and while working with it, I've noticed some limitations. The primary variables of interest are the credit score and loan-to-value (LTV) ratio, as they have the most impact. However, it's worth noting that factors like income and loan amount don't seem to influence the profile score significantly in this dataset. Despite these limitations, this project reflects my journey of learning and my passion for machine learning, Python programming, and prediction modeling using Gradient Boosting Regressor (GBR) with scikit-learn. </p>"
+            f'</div>', unsafe_allow_html=True)
 col1, col2 = st.columns(2)
 
 # Input fields for user data in the first column
@@ -42,7 +45,8 @@ with col2:
         'Number of Existing Loans', min_value=0, step=1, value=5)
     loan_amount = st.number_input(
         'Loan Amount', min_value=0, step=1000, value=109373)
-    loan_tenure = st.number_input('Loan Tenure', min_value=1, step=1, value=221)
+    loan_tenure = st.number_input(
+        'Loan Tenure', min_value=1, step=1, value=221)
     ltv_ratio = st.number_input(
         'LTV Ratio', min_value=0.0, step=0.01, value=90.943430)
 # Convert the selected option to a numerical value
@@ -60,11 +64,9 @@ if st.button('Predict'):
 
     # Make prediction using the loaded model
     prediction = model_gb.predict(input_data)
-    st.caption(f'Predicted Profile Score: {round(prediction[0],2)}')
+    st.caption(f'Predicted Profile Score: {round(prediction[0], 2)}')
     threshold = 70
     if prediction >= threshold:
         st.success("Bank should give credit.")
     else:
         st.error("Bank should not give credit.")
-
-
